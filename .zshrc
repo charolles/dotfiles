@@ -36,6 +36,7 @@ zle -N accept-line re-prompt
 # 1行表示
 # PROMPT="%~ %# "
 # 2行表示
+# green / cyan 
 PROMPT="%{${fg[green]}%}[%n@%m]%{${reset_color}%} %{${fg[yellow]}%}[%*]%{${reset_color}%} %~
 %# "
 
