@@ -2,6 +2,7 @@ set encoding=utf-8
 scriptencoding utf-8
 " ↑1行目は読み込み時の文字コードの設定
 " ↑2行目はVim Script内でマルチバイトを使う場合の設定
+"
 " Vim scritptにvimrcも含まれるので、日本語でコメントを書く場合は先頭にこの設定が必要になる
 
 "----------------------------------------------------------
@@ -184,6 +185,8 @@ if &term =~ "xterm"
     inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
 endif
 
+set clipboard+=unnamed
+
 "----------------------------------------------------------
 " neocomplete・neosnippetの設定
 "----------------------------------------------------------
@@ -246,3 +249,16 @@ if executable('ag')
   let g:ctrlp_use_caching=0 " CtrlPのキャッシュを使わない
   let g:ctrlp_user_command='ag %s -i --hidden -g ""' " 「ag」の検索設定
 endif
+
+"----------------------------------------------------------
+" キーバインド
+"----------------------------------------------------------
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+nnoremap <silent><C-h> ^
+nnoremap <silent><C-l> $
+nnoremap <silent><C-a> ^
+
+" Crontab
+set backupskip=/tmp/*,/private/tmp/*
+
+set shell=/bin/zsh

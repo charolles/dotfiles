@@ -4,16 +4,39 @@ colors
 
 bindkey -v
 
+# bindkey
+bindkey "^A" beginning-of-line
+bindkey "^B" backward-char
+bindkey "^E" end-of-line
+bindkey "^F" forward-char
+bindkey "^G" send-break
+bindkey "^H" backward-delete-char
+bindkey "^I" expand-or-complete
+bindkey "^L" clear-screen
+bindkey "^M" accept-line
+bindkey "^N" down-line-or-history
+bindkey "^P" up-line-or-history
+bindkey "^R" history-incremental-search-backward
+bindkey "^U" kill-whole-line
+bindkey "^W" backward-kill-word
+
 # ヒストリの設定
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
+# 時間表示
+re-prompt() {
+  zle .reset-prompt
+  zle .accept-line
+}
+zle -N accept-line re-prompt
+
 # プロンプト
 # 1行表示
 # PROMPT="%~ %# "
 # 2行表示
-PROMPT="%{${fg[green]}%}[%n@%m]%{${reset_color}%} %~
+PROMPT="%{${fg[green]}%}[%n@%m]%{${reset_color}%} %{${fg[yellow]}%}[%*]%{${reset_color}%} %~
 %# "
 
 
@@ -140,11 +163,17 @@ alias g++14='g++-6 -std=c++14'
 alias sudo='sudo '
 
 # nvimをvimに
-alias vim='nvim'
+# alias vim='nvim'
 
 # グローバルエイリアス
 alias -g L='| less'
 alias -g G='| grep'
+
+# AWS関連
+alias myaws='oathtool --totp -b "BEMUIZ53E3SQ6EHUMATEKUO5S6CHMIVZBR6QBDU3JUD6XJYBJ6HX4RIIW7I2L2IX"'
+
+# Time関連
+alias tz='for tz in America/Los_Angeles UTC Asia/Calcutta Asia/Tokyo; do LC_ALL=en_US.UTF-8 TZ=$tz date +"%Z, %Y-%m-%dT%H:%M:%S%z %a"; done'
 
 # C で標準出力をクリップボードにコピーする
 # mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
@@ -173,7 +202,7 @@ function peco-src() {
 }
 zle -N peco-src
 
-export GOPATH=$HOME/Work/Go
+export GOPATH=$HOME/Dropbox/000_Workspace/010_Go
 export PATH=$PATH:$GOPATH/bin
 
 
@@ -196,14 +225,15 @@ export XDG_CONFIG_HOME=~/.config
 
 # vim:set ft=zsh:
 export PATH="/usr/local/bin:$PATH"
+export PATH="/Users/etak/.rbenv/version:$PATH"
 
-export PATH="$HOME/.pyenv/versions/neovim3/bin:$PATH"
+# export PATH="$HOME/.pyenv/versions/neovim3/bin:$PATH"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - zsh)"
 
-export NVM_DIR="/Users/charolles/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+# export NVM_DIR="/Users/charolles/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:${PATH}
 export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}
@@ -218,3 +248,7 @@ export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}
 #     eval "$(pyenv virtualenv-init -)"
 # fi
 
+# For AWS
+source /usr/local/bin/aws_zsh_completer.sh
+
+export SHELL="/usr/bin/false"
